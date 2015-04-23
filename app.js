@@ -6,6 +6,11 @@ var routeUtil = require('./app/util/routeUtil');
 var app = pomelo.createApp();
 app.set('name', 'chatofpomelo');
 
+var logger = require('pomelo-logger');
+logger.configure(app.getBase()+'/config/log4js.json', {
+    serverId: app.getServerId(),
+    base: app.getBase()
+});
 
 // app configure
 app.configure('production|development', function() {
