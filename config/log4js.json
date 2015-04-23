@@ -65,7 +65,7 @@
     },
     {
       "type": "file",
-      "filename": "./logs/info.log",
+      "filename": "./logs/info-${opts:serverId}.log",
       "maxLogSize": 1048576,
       "layout": {
         "type": "basic"
