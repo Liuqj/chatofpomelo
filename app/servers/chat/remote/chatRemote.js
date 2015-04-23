@@ -1,3 +1,5 @@
+var logger = require('pomelo-logger').getLogger('info-log', __filename);
+
 module.exports = function(app) {
 	return new ChatRemote(app);
 };
@@ -23,9 +25,12 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 		route: 'onAdd',
 		user: username
 	};
+
+	logger.info('add: msg[push message] uid[%s] username[%s] channelname[%s]', uid, username, name);
 	channel.pushMessage(param);
 
 	if( !! channel) {
+		logger.info('add: msg[add user] uid[%s] channelname[%s] sid[%s]', uid, name, sid);
 		channel.add(uid, sid);
 	}
 
@@ -50,6 +55,7 @@ ChatRemote.prototype.get = function(name, flag) {
 	for(var i = 0; i < users.length; i++) {
 		users[i] = users[i].split('*')[0];
 	}
+	logger.info('get: msg[get user list] length[%s] channelname[%s]', users.length, name);
 	return users;
 };
 
@@ -65,6 +71,7 @@ ChatRemote.prototype.kick = function(uid, sid, name) {
 	var channel = this.channelService.getChannel(name, false);
 	// leave channel
 	if( !! channel) {
+		logger.info('kick: msg[kick user] uid[%s] channelname[%s] sid[%s]', uid, name, sid);
 		channel.leave(uid, sid);
 	}
 	var username = uid.split('*')[0];
@@ -72,5 +79,7 @@ ChatRemote.prototype.kick = function(uid, sid, name) {
 		route: 'onLeave',
 		user: username
 	};
+
+	logger.info('kick: msg[push message] uid[%s] username[%s] channelname[%s]', uid, username, name);
 	channel.pushMessage(param);
 };

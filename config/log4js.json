@@ -62,6 +62,16 @@
         }
       ,"backups": 5,
       "category":"crash-log"
+    },
+    {
+      "type": "file",
+      "filename": "./logs/info.log",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      }
+      ,"backups": 5,
+      "category":"info-log"
     }
   ],
 

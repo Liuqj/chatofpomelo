@@ -19,8 +19,7 @@ app.configure('production|development', function() {
         useDict : true,
         useProtobuf : true,
         heartbeat : 30,
-        disconnectOnTimeout : false
-
+        disconnectOnTimeout : true
     });
 
     app.set('errorHandler', function (err, msg, resp, session, next) {

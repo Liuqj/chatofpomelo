@@ -1,4 +1,5 @@
 var chatRemote = require('../remote/chatRemote');
+var logger = require('pomelo-logger').getLogger('info-log', __filename);
 
 module.exports = function(app) {
 	return new Handler(app);
@@ -29,6 +30,8 @@ handler.send = function(msg, session, next) {
 		target: msg.target
 	};
 	channel = channelService.getChannel(rid, false);
+
+	logger.info('send: msg[send message] uid[%s] rid[%s] from[%s] target[%s] content[%s]', session.uid, rid, username, msg.target, msg.content);
 
 	//the target is all users
 	if(msg.target == '*') {
